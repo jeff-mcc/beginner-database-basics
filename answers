@@ -1,0 +1,94 @@
+--Table-Person--
+
+CREATE TABLE person (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50),
+  age INT,
+  height FLOAT,
+  city VARCHAR(50),
+  favorite_color VARCHAR(50)
+ );
+
+ INSERT INTO person (name,age,height,city,favorite_color)
+VALUES ('Billy',5,100.2,'Lehi','blue'),
+	('George',10,130.7,'Provo','red'),
+  ('Sharon',15,160.1,'Alpine','magenta'),
+  ('Fred',20,190.8,'London','orange'),
+  ('Voldemort',25,176.4,'back of Quirrells head','black');
+
+SELECT * FROM person
+ORDER BY height DESC;
+
+SELECT * FROM person
+ORDER BY height ASC;
+
+SELECT * FROM person
+ORDER BY age DESC;
+
+SELECT * FROM person
+WHERE age > 20;
+
+SELECT * FROM person
+WHERE age = 18;
+
+--IF question 8 is interpreted literally-- 
+SELECT * FROM person
+WHERE age < 20 AND age > 30;
+
+--If question 8 is not interpreted literally--
+SELECT * FROM person
+WHERE age < 20 OR age > 30;
+
+SELECT * FROM person
+WHERE age != 27;
+
+SELECT * FROM person
+WHERE favorite_color <> 'red';
+
+SELECT * FROM person
+WHERE favorite_color <> 'red' AND favorite_color != 'blue';
+
+SELECT * FROM person
+WHERE favorite_color = 'orange' OR favorite_color = 'green';
+
+SELECT * FROM person
+WHERE favorite_color IN ('orange','green','blue');
+
+SELECT * FROM person
+WHERE favorite_color IN ('yellow','purple');
+
+
+--Table-orders--
+
+CREATE TABLE orders (
+	order_id SERIAL PRIMARY KEY,
+  person_id INT,
+  product_name VARCHAR(50),
+  product_price DECIMAL(5,2),
+  quantity INT
+);
+
+INSERT INTO orders (person_id,product_name,product_price,quantity)
+VALUES (1,'food',8.99,1),
+	(8,'goop',135.87,10),
+  (1,'eat',1.99,5),
+  (7,'rice',19.99,3),
+  (2,'beans',87.50,2);
+
+SELECT * FROM orders;
+
+SELECT sum(quantity) FROM orders;
+
+--I assumed that the product_price is the price of a single item within an order not the price for the entire quantity since the variable is product_price and not something like order_price, etc.--
+SELECT quantity * product_price FROM orders;
+
+--add this to obtain the price for a single order--
+WHERE order_id = 2;
+
+--and for a single person id--
+SELECT sum(quantity * product_price) FROM orders
+WHERE person_id = 1;
+
+
+--Table-artist--
+
